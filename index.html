@@ -37,8 +37,17 @@
       <a-camera position="0 1.6 0"></a-camera>
 
       <!-- Contrôleurs Meta Quest -->
-      <a-entity id="leftController" meta-touch-controls="hand: left"></a-entity>
-      <a-entity id="rightController" meta-touch-controls="hand: right"></a-entity>
+      <!-- <a-entity id="leftController" meta-touch-controls="hand: left"></a-entity>
+      <a-entity id="rightController" meta-touch-controls="hand: right"></a-entity> -->
+
+       <!-- Contrôleurs Quest -->
+    <a-entity id="leftController"
+              oculus-touch-controls="hand: left">
+    </a-entity>
+
+    <a-entity id="rightController"
+              oculus-touch-controls="hand: right">
+    </a-entity>
       
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
@@ -77,7 +86,7 @@
           this.el.object3D.position.lerp(cPos, 0.2);
 
           // Joystick axes pour rotation et avancer/reculer
-          const gamepad = this.controller.components["meta-touch-controls"]?.controller;
+          const gamepad = this.controller.components["oculus-touch-controls"]?.controller;
           if (!gamepad) return;
 
           const [x, y] = gamepad.axes; // x=horizontal, y=vertical

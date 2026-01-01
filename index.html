@@ -35,6 +35,11 @@
       </a-entity>
 
       <a-camera position="0 1.6 0"></a-camera>
+
+      <!-- Contrôleurs Meta Quest -->
+      <a-entity id="leftController" meta-touch-controls="hand: left"></a-entity>
+      <a-entity id="rightController" meta-touch-controls="hand: right"></a-entity>
+      
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
 
@@ -48,6 +53,37 @@
 
         const url = URL.createObjectURL(file);
         model.setAttribute("gltf-model", url);
+      });
+
+            // Composant grab + move pour manettes Meta Quest
+      AFRAME.registerComponent("grab-move", {
+        init() {
+          this.grabbed = false;
+          this.controller = document.getElementById("rightController");
+
+          // Trigger press / release
+          this.el.sceneEl.addEventListener("triggerdown", () => {
+            this.grabbed = true;
+          });
+          this.el.sceneEl.addEventListener("triggerup", () => {
+            this.grabbed = false;
+          });
+        },
+        tick() {
+          if (!this.grabbed || !this.controller) return;
+
+          // Position de la manette
+          const cPos = this.controller.object3D.position;
+          this.el.object3D.position.lerp(cPos, 0.2);
+
+          // Joystick axes pour rotation et avancer/reculer
+          const gamepad = this.controller.components["meta-touch-controls"]?.controller;
+          if (!gamepad) return;
+
+          const [x, y] = gamepad.axes; // x=horizontal, y=vertical
+          this.el.object3D.rotation.y -= x * 0.05; // rotation
+          this.el.object3D.position.z += y * 0.05; // avancer/reculer
+        }
       });
     </script>
   </body>

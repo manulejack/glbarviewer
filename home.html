@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>GLB VR Viewer</title>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+      }
+      #ui {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        z-index: 10;
+        background: rgba(255,255,255,0.9);
+        padding: 10px;
+        border-radius: 6px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="ui">
+      <input type="file" id="fileInput" accept=".glb" />
+    </div>
+
+    <a-scene vr-mode-ui="enabled: true">
+      <a-entity
+        id="model"
+        position="0 1.2 -2"
+        rotation="0 0 0"
+        scale="1 1 1">
+      </a-entity>
+
+      <a-camera position="0 1.6 0"></a-camera>
+      <a-sky color="#ECECEC"></a-sky>
+    </a-scene>
+
+    <script>
+      const fileInput = document.getElementById("fileInput");
+      const model = document.getElementById("model");
+
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        const url = URL.createObjectURL(file);
+        model.setAttribute("gltf-model", url);
+      });
+    </script>
+  </body>
+</html>

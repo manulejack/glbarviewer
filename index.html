@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <title>GLB VR Viewer</title>
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+        <!-- Super Hands -->
+    <script src="https://cdn.jsdelivr.net/gh/wmurphyrd/aframe-super-hands-component@4.0.5/dist/aframe-super-hands.min.js"></script>
+    
     <style>
       body {
         margin: 0;
@@ -23,7 +27,7 @@
 
   <body>
     <div id="ui">
-      <button id="customButton">Choose a .glb file</button>
+      <div>Load a GLB file</div>
       <input type="file" id="fileInput" accept=".glb" />
     </div>
 
@@ -33,23 +37,15 @@
         position="0 0 -2"
         rotation="0 0 0"
         scale="1 1 1"
-        grab-and-move>
+        class="interactable"
+        super-hands>
       </a-entity>
 
       <a-camera position="0 1.6 0"></a-camera>
 
-      <!-- Contrôleurs Meta Quest -->
-      <!-- <a-entity id="leftController" meta-touch-controls="hand: left"></a-entity>
-      <a-entity id="rightController" meta-touch-controls="hand: right"></a-entity> -->
-
-       <!-- Contrôleurs Quest -->
-    <a-entity id="leftController"
-              oculus-touch-controls="hand: left">
-    </a-entity>
-
-    <a-entity id="rightController"
-              oculus-touch-controls="hand: right">
-    </a-entity>
+ <!-- Contrôleurs Meta Quest avec super hands -->
+  <a-entity id="leftController" meta-touch-controls="hand: left" super-hands></a-entity>
+  <a-entity id="rightController" meta-touch-controls="hand: right" super-hands></a-entity>
       
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
@@ -64,37 +60,6 @@
 
         const url = URL.createObjectURL(file);
         model.setAttribute("gltf-model", url);
-      });
-
-            // Composant grab + move pour manettes Meta Quest
-      AFRAME.registerComponent("grab-move", {
-        init() {
-          this.grabbed = false;
-          this.controller = document.getElementById("rightController");
-
-          // Trigger press / release
-          this.el.sceneEl.addEventListener("triggerdown", () => {
-            this.grabbed = true;
-          });
-          this.el.sceneEl.addEventListener("triggerup", () => {
-            this.grabbed = false;
-          });
-        },
-        tick() {
-          if (!this.grabbed || !this.controller) return;
-
-          // Position de la manette
-          const cPos = this.controller.object3D.position;
-          this.el.object3D.position.lerp(cPos, 0.2);
-
-          // Joystick axes pour rotation et avancer/reculer
-          const gamepad = this.controller.components["oculus-touch-controls"]?.controller;
-          if (!gamepad) return;
-
-          const [x, y] = gamepad.axes; // x=horizontal, y=vertical
-          this.el.object3D.rotation.y -= x * 0.05; // rotation
-          this.el.object3D.position.z += y * 0.05; // avancer/reculer
-        }
       });
     </script>
   </body>

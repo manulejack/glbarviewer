@@ -3,11 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <title>GLB VR Viewer</title>
+    <link rel="icon" type="image/png" href="favicon-glb2.png">
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
 
         <!-- Super Hands -->
-    <script src="https://cdn.jsdelivr.net/gh/wmurphyrd/aframe-super-hands-component@4.0.5/dist/aframe-super-hands.min.js"></script>
-    
+
+  <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+  <!--<script src="https://unpkg.com/super-hands@^3.0.6/dist/super-hands.min.js"></script>  --> 
     <style>
       body {
         margin: 0;
@@ -18,34 +20,73 @@
         top: 10px;
         left: 10px;
         z-index: 10;
-        background: rgba(255,255,255,0.9);
+        background: rgba(255,255,255,0);
         padding: 10px;
         border-radius: 6px;
       }
+
+      /* Logo */
+      #logo {
+        width: 200px;
+        height: auto;
+        margin-bottom: -20px;
+        margin-left: -20px;
+      }
+
+      #title {
+      
+        font-size: 18px;
+      }
+    #footer {
+      font-size: 12px;
+      margin-top: 20px;
+    }
+
+
     </style>
   </head>
 
   <body>
     <div id="ui">
-      <div>Load a GLB file</div>
+          <img src="./logoGLBViewer-3.png" alt="Logo" id="logo" />
+
+      
+      <h1 id="title">GLB VR Viewer</h1>
+      <p>Load a glb file from your headset, <br> then click on the VR button on the bottom <br> right corner of the page.</p>
+      <p>You can use </p>
       <input type="file" id="fileInput" accept=".glb" />
+      <div id="footer">
+  © 2026 Emmanuel Azouvi
+</div>
     </div>
 
     <a-scene vr-mode-ui="enabled: true">
+  <a-entity
+    id="rightHand"
+    laser-controls="hand: right"
+    raycaster="objects: .interactable">
+  </a-entity>
+  
+  <a-entity
+    id="leftHand"
+    laser-controls="hand: left"
+    raycaster="objects: .interactable">
+  </a-entity>
+      
       <a-entity
         id="model"
         position="0 0 -2"
         rotation="0 0 0"
         scale="1 1 1"
         class="interactable"
-        super-hands>
+
+        >
       </a-entity>
 
       <a-camera position="0 1.6 0"></a-camera>
 
  <!-- Contrôleurs Meta Quest avec super hands -->
-  <a-entity id="leftController" meta-touch-controls="hand: left" super-hands></a-entity>
-  <a-entity id="rightController" meta-touch-controls="hand: right" super-hands></a-entity>
+
       
       <a-sky color="#ECECEC"></a-sky>
     </a-scene>
@@ -54,6 +95,9 @@
       const fileInput = document.getElementById("fileInput");
       const model = document.getElementById("model");
 
+      const rightHand = document.getElementById("rightHand");
+      const leftHand = document.getElementById("leftHand");
+
       fileInput.addEventListener("change", () => {
         const file = fileInput.files[0];
         if (!file) return;
@@ -61,6 +105,28 @@
         const url = URL.createObjectURL(file);
         model.setAttribute("gltf-model", url);
       });
+
+    
+      // model.addEventListener("click", () => {
+      //   const rotation = model.getAttribute("rotation");
+      //   rotation.y += 15; // degrees per click
+      //   model.setAttribute("rotation", rotation);
+      // });
+
+      // Right controller → rotate right
+      rightHand.addEventListener("click", () => {
+        const rotation = model.getAttribute("rotation");
+        rotation.y += 15;
+        model.setAttribute("rotation", rotation);
+      });
+      
+      // Left controller → rotate left
+      leftHand.addEventListener("click", () => {
+        const rotation = model.getAttribute("rotation");
+        rotation.y -= 15;
+        model.setAttribute("rotation", rotation);
+      });
+
     </script>
   </body>
 </html>

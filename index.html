@@ -64,18 +64,20 @@
   <a-entity
     id="rightHand"
     laser-controls="hand: right"
+    oculus-touch-controls="hand: right"
     raycaster="objects: .interactable">
   </a-entity>
   
   <a-entity
     id="leftHand"
     laser-controls="hand: left"
+    oculus-touch-controls="hand: left"
     raycaster="objects: .interactable">
   </a-entity>
       
       <a-entity
         id="model"
-        position="0 -150 6"
+        position="0 0 -2"
         rotation="0 0 0"
         scale="1 1 1"
         class="interactable"
@@ -126,6 +128,50 @@
         rotation.y -= 15;
         model.setAttribute("rotation", rotation);
       });
+
+       // --- Joystick-based movement ---
+      let leftStick = { x: 0, y: 0 };
+      let rightStick = { x: 0, y: 0 };
+
+      leftHand.addEventListener("thumbstickmoved", (evt) => {
+        leftStick.x = evt.detail.x;
+        leftStick.y = evt.detail.y;
+      });
+
+      rightHand.addEventListener("thumbstickmoved", (evt) => {
+        rightStick.x = evt.detail.x;
+        rightStick.y = evt.detail.y;
+      });
+
+      const MOVE_SPEED = 1.0; // meters per second, tweak to taste
+      const DEADZONE = 0.15;
+
+            // Runs on every frame; timeDelta is in ms
+      AFRAME.registerComponent("model-mover", {
+        tick: function (time, timeDelta) {
+          const dt = timeDelta / 1000;
+          const pos = model.getAttribute("position");
+
+          // Left stick Y → up/down
+          if (Math.abs(leftStick.y) > DEADZONE) {
+            pos.y -= leftStick.y * MOVE_SPEED * dt;
+          }
+
+                    // Left stick X → left/right strafe
+          if (Math.abs(leftStick.x) > DEADZONE) {
+            pos.x += leftStick.x * MOVE_SPEED * dt;
+          }
+
+          // Right stick Y → forward/backward
+          if (Math.abs(rightStick.y) > DEADZONE) {
+            pos.z += rightStick.y * MOVE_SPEED * dt;
+          }
+
+          model.setAttribute("position", pos);
+        }
+      });
+
+      document.querySelector("a-scene").setAttribute("model-mover", "");
 
     </script>
   </body>

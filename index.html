@@ -19,11 +19,17 @@
         margin: 0;
         font-family: sans-serif;
         background: #FFFFFF;
+          min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;      /* centers horizontally */
+  overflow-x: hidden;       /* no horizontal scroll */
+  overflow-y: auto;         /* vertical scroll when needed */
       }
       #ui {
-        position: absolute;
-        top: 10px;
-        left: 10px;
+        position: relative;
+        top: auto;
+        left: auto;
         z-index: 10;
         /* background: rgba(255,255,255,0); */
         padding: 10px;

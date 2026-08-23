@@ -160,6 +160,12 @@
     .Documents-btn:hover .fileFront {
       transform: rotateX(30deg);
     }
+      #controllersImage{
+                width: 500px;
+        height: auto;
+        margin-bottom: -20px;
+        margin-left: -20px;
+      }
 
     </style>
   </head>
@@ -172,9 +178,12 @@
       <h1 id="title">GLB VR</h1>
       <h2 id="subtitle">Viewer</h2>
       <p>Load a glb file from your headset, <br> then click on the VR button on the bottom <br> right corner of the page.</p>
-      <p>Use your controllers to move around or rotate model. <br> Left joystick to move up, down, sideways. <br>Left click to rotate left. <br>Right joystick to move forward or backward.
-      <br>Right click to rotate right.
+      <!-- <p>Use your controllers to move around or rotate model.  -->
+        <!-- <br> Left joystick to move up, down, sideways. <br>Left click to rotate left. <br>Right joystick to move forward or backward.
+      <br>Right click to rotate right. -->
       </p>
+
+      
       
       <input type="file" id="fileInput" accept=".glb" class="visually-hidden" />
 
@@ -210,7 +219,8 @@
         </span>
         <p class="text">Load GLB</p>
       </button>
-
+      
+ <img src="./controller-glb.png" alt="controllers" id="controllersImage" />
       
       <div id="footer">
   © 2026 Emmanuel Azouvi

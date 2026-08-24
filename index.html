@@ -88,6 +88,30 @@
         margin-top: 0px;
         margin-bottom: 2px;
       }
+
+      #title span,
+#subtitle span {
+  display: inline-block;
+  background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Wave for "GLB VR" */
+#title .w1 { font-size: 0.8em;  transform: translateY(6px); }
+#title .w2 { font-size: 1em;    transform: translateY(-2px); }
+#title .w3 { font-size: 1.15em; transform: translateY(-10px); }
+#title .w4 { font-size: 1em;    transform: translateY(-2px); }
+#title .w5 { font-size: 0.85em; transform: translateY(6px); }
+
+/* Wave for "Viewer" */
+#subtitle .w1 { font-size: 0.85em; transform: translateY(6px); }
+#subtitle .w2 { font-size: 1em;    transform: translateY(-2px); }
+#subtitle .w3 { font-size: 1.15em; transform: translateY(-10px); }
+#subtitle .w4 { font-size: 1.1em;  transform: translateY(-6px); }
+#subtitle .w5 { font-size: 0.95em; transform: translateY(2px); }
+#subtitle .w6 { font-size: 0.8em;  transform: translateY(8px); }
       
     #footer {
       font-size: 12px;
@@ -195,8 +219,16 @@
           <img src="./glb-cartoon-logo.png" alt="Logo" id="logo" />
 
       
-      <h1 id="title">GLB VR</h1>
-      <h2 id="subtitle">Viewer</h2>
+      <!-- <h1 id="title">GLB VR</h1>
+      <h2 id="subtitle">Viewer</h2> -->
+
+      <h1 id="title">
+      <span class="w1">G</span><span class="w2">L</span><span class="w3">B</span> <span class="w4">V</span><span class="w5">R</span>
+      </h1>
+      <h2 id="subtitle">
+        <span class="w1">V</span><span class="w2">i</span><span class="w3">e</span><span class="w4">w</span><span class="w5">e</span><span class="w6">r</span>
+      </h2>
+      
       <p>Load a glb file from your headset, <br> then click on the VR button on the bottom <br> right corner of the page.</p>
       <!-- <p>Use your controllers to move around or rotate model.  -->
         <!-- <br> Left joystick to move up, down, sideways. <br>Left click to rotate left. <br>Right joystick to move forward or backward.

@@ -57,10 +57,12 @@
     "wdth" 100;
         font-style: normal;
         /* color: #000000; */
-        background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
+        /* background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
         -webkit-background-clip: text;
         background-clip: text;
-        color: transparent;
+        color: transparent; */
+
+        color: #000;    
         
         font-size: 80px;
         letter-spacing: -1px;
@@ -77,10 +79,11 @@
     "wdth" 100;
         font-style: normal;
         
-        background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
+        /* background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
         -webkit-background-clip: text;
         background-clip: text;
-        color: transparent;
+        color: transparent; */
+              color: #000;    
         
         font-size: 90px;
         letter-spacing: -1px;
@@ -92,12 +95,12 @@
       #title span,
 #subtitle span {
   display: inline-block;
-  background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
+  color: #000;    
+  /* background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
   background-attachment: fixed;
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
-    /* color: inherit; */
+  color: transparent; */
 }
 
 /* Wave for "GLB VR" */
@@ -114,6 +117,20 @@
 #subtitle .w4 { font-size: 90px;  transform: translateY(6px); }
 #subtitle .w5 { font-size: 90px; transform: translateY(-4px); }
 #subtitle .w6 { font-size: 90px;  transform: translateY(-8px); }
+
+      #title-wrap {
+  position: relative;
+  display: inline-block; /* shrinks to fit the text, keeps it centered like before */
+}
+
+#title-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to left bottom, #9b3ce8, #3386ef, #13bcec);
+  mix-blend-mode: lighten;
+}
       
     #footer {
       font-size: 12px;
@@ -224,12 +241,14 @@
       <!-- <h1 id="title">GLB VR</h1>
       <h2 id="subtitle">Viewer</h2> -->
 
-      <h1 id="title">
-      <span class="w1">G</span><span class="w2">L</span><span class="w3">B</span> <span class="w4">V</span><span class="w5">R</span>
-      </h1>
-      <h2 id="subtitle">
-        <span class="w1">V</span><span class="w2">i</span><span class="w3">e</span><span class="w4">w</span><span class="w5">e</span><span class="w6">r</span>
-      </h2>
+      <div id="title-wrap">
+        <h1 id="title">
+        <span class="w1">G</span><span class="w2">L</span><span class="w3">B</span> <span class="w4">V</span><span class="w5">R</span>
+        </h1>
+        <h2 id="subtitle">
+          <span class="w1">V</span><span class="w2">i</span><span class="w3">e</span><span class="w4">w</span><span class="w5">e</span><span class="w6">r</span>
+        </h2>
+      </dive>
       
       <p>Load a glb file from your headset, <br> then click on the VR button on the bottom <br> right corner of the page.</p>
       <!-- <p>Use your controllers to move around or rotate model.  -->
